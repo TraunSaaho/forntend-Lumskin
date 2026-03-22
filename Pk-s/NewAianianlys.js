@@ -1,4 +1,4 @@
-const API="https://lumiskin-ai-backend.onrender.com";
+const API="http://localhost:5000";
 
 async function checkHealth(){
 
