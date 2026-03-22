@@ -218,7 +218,7 @@ if (startAnalysis) {
 
         } catch (err) {
             console.error("Analysis failed:", err);
-            alert(`Analysis failed: ${err.message}\n\nMake sure the Flask server is running on port 10000.`);
+            alert(`Analysis failed: ${err.message}\n\nPlease try again in a moment.`);
             // Go back
             if (loadingScreen) loadingScreen.classList.remove("active");
             if (concernScreen) concernScreen.classList.add("active");
