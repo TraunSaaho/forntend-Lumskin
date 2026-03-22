@@ -232,7 +232,7 @@ if (startAnalysis) {
 async function callAnalyzeImage(imageBase64, concerns) {
     console.log("Calling /api/analyze-image ...");
 
-    const res = await fetch("https://lumiskin-ai-backend.onrender.com/api/analyze-image", {
+    const res = await fetch("http://localhost:10000/api/analyze-image", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -253,7 +253,7 @@ async function callAnalyzeImage(imageBase64, concerns) {
 async function callAnalyzeSkin(features) {
     console.log("Calling /api/analyze-skin ...");
 
-    const res = await fetch("https://lumiskin-ai-backend.onrender.com/api/analyze-skin", {
+    const res = await fetch("http://localhost:10000/api/analyze-skin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(features)
