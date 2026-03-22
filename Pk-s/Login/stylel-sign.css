@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Georgia', serif;
+}
+
+body {
+    background: #e6dede;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 1200px;
+    height: 700px;
+    background: #f4eded;
+    border-radius: 20px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* LEFT SIDE */
+
+.left-section {
+    flex: 1;
+    padding: 60px;
+    position: relative;
+    background: #f2eaea;
+}
+
+.text-box {
+    background: white;
+    padding: 40px;
+    width: 80%;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.text-box h1 {
+    font-size: 38px;
+    color: #4a1f1f;
+    margin-bottom: 20px;
+}
+
+.text-box p {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.6;
+}
+
+.product-image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.product-image img {
+    width: 100%;
+    object-fit: cover;
+}
+
+/* RIGHT SIDE */
+
+.right-section {
+    flex: 1;
+    background: #f4eded;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    background: white;
+    padding: 50px;
+    width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.form-box h2 {
+    margin-bottom: 30px;
+    color: #4a1f1f;
+}
+
+form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+    color: #333; /* Explicitly set color for visibility */
+}
+
+/* BUTTONS */
+
+.primary-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    background: #8b735c;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    background: #6f5a47;
+}
+
+.google-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.switch-text {
+    text-align: center;
+    font-size: 14px;
+}
+
+.switch-text a {
+    color: #8b735c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2eaea;
+}
+
+/* HOME */
+.home-content {
+    text-align: center;
+    padding-top: 200px;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    width: 400px;
+    border-radius: 15px;
+    animation: slideUp 0.6s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 12px;
+    background: #8b735c;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.google-btn {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.google-btn img {
+    width: 20px;
+}
+
+#toggleAuth {
+    color: #8b735c;
+    cursor: pointer;
+    font-weight: bold;
+}

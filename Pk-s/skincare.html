@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LumiSkin</title>
+  
+
+
+
+
+
+
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="skincare.css">
+  <link rel="stylesheet" href="contact.css">
+</head>
+
+<body>
+
+  <script type="module">
+    // Firebase imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyB8TpspgRB49SJos3Jr6TjIb2CgUaJw5KA",
+      authDomain: "lumiskin-e2dba.firebaseapp.com",
+      projectId: "lumiskin-e2dba",
+      storageBucket: "lumiskin-e2dba.firebasestorage.app",
+      messagingSenderId: "530130297490",
+      appId: "1:530130297490:web:664375d22b2f0ae190fc4b",
+      measurementId: "G-E73FF0FB6Y"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Check authentication
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "Login/login.html";
+      }
+    });
+  </script>
+   
+  <a href="skincare.html" class="active">Skincare</a>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const links = document.querySelectorAll(".nav-links a");
+    const currentPage = window.location.pathname.split("/").pop();
+
+    links.forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+        }
+    });
+});
+</script>
+
+
+  <!-- Navigation bar starts.-->
+   
+
+  <header class="navbar" id="navbar">
+
+    <!-- Logo -->
+    <a href="index.html" class="main-logo">
+        <img src="cards/logo skincare.png" alt="LumiSkin Logo">
+    </a>
+
+    <!-- Navigation Links -->
+    <nav class="nav-links">
+        <a href="index.html" data-link="home">Home</a>
+        <a href="skincare.html" data-link="skincare">Skincare</a>
+        <a href="Ai anianlys.html" data-link="reports">Ai Analysis</a>
+        <a href="about.html" data-link="about">About</a>
+        <a href="contact.html" data-link="contact">Contact</a>
+    </nav>
+
+    <!-- Icons -->
+    <div class="nav-icons">
+
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="search-input" placeholder="Search skincare...">
+        </div>
+
+        <div class="profile-box">
+            <i class="fa-regular fa-user" id="profileIcon"></i>
+
+            <div class="profile-menu" id="profileMenu">
+                <a href="profile.html">Profile</a>
+                <a href="Login/login.html" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Hamburger -->
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+</header>
+
+  <!-- Navigation bar ends.-->
+
+
+
+  <!-- senode silde  stareds .-->
+
+
+  <!-- ===== BOX VIDEO BANNER ===== -->
+
+  <!-- ================= HERO SECTION ================= -->
+
+  <section class="box-section">
+    <div class="box-hero">
+
+      <video autoplay muted loop playsinline class="box-video">
+        <source src="7185934_Woman_Cosmetics_4096x2160.mp4" type="video/mp4">
+      </video>
+
+
+      
+      <div class="box-overlay"></div>
+
+      <div class="box-content">
+        <h1>Best Skincare<br>Forever Glow</h1>
+        <a href="products.html" class="box-btn">SHOP NOW</a>
+
+
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= PRODUCT CARDS ================= -->
+
+  <!-- ================= PRODUCT CARDS ================= -->
+
+  <section class="products-section">
+
+    <div class="products-container">
+
+      <!-- Card 1 -->
+      <div class="product-card">
+        <img src="Moisturizers.webp" alt="Moisturizers">
+
+        <div class="product-content">
+          <h2 class="card-title">Moisturizers</h2>
+          <a href="" class="card-btn">SHOP NOW</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="product-card">
+        <img src="foxtale body location .webp" alt="Body Lotions">
+
+        <div class="product-content">
+          <h2 class="card-title">Body Lotions</h2>
+          <a href="products.html" class="card-btn">SHOP NOW</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="product-card">
+        <img src="anthi simple.webp" alt="Facial Detox">
+
+        <div class="product-content">
+          <h2 class="card-title">Facial Detox</h2>
+          <a href="products.html" class="card-btn">SHOP NOW</a>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- senode silde  End .-->
+
+
+
+
+
+  <!-- thried silde  rewies   streds .-->
+
+
+  <!-- ================= TESTIMONIAL SLIDER ================= -->
+
+  <section class="testimonial-section">
+
+  <div class="testimonial-container">
+
+    <button class="arrow left" id="prevBtn">&#8592;</button>
+
+    <div class="testimonial-content">
+      <p id="testimonialText"></p>
+
+      <div class="testimonial-user">
+        
+        <h4 id="userName"></h4>
+      </div>
+    </div>
+
+    <button class="arrow right" id="nextBtn">&#8594;</button>
+
+  </div>
+
+</section>
+
+<script>
+const testimonials = [
+  {
+    text: "I've tried countless moisturizers, but this one is a game-changer!",
+    name: "Hasini",
+    
+  },
+  {
+    text: "Absolutely love the texture! It absorbs quickly.",
+    name: "Ram",
+    
+  },
+  {
+    text: "The facial detox kit made a huge difference.",
+    name: "Hasini",
+   
+  }
+];
+
+let index = 0;
+
+const textEl = document.getElementById("testimonialText");
+const nameEl = document.getElementById("userName");
+const imageEl = document.getElementById("userImage");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+
+function updateSlide() {
+  textEl.textContent = testimonials[index].text;
+  nameEl.textContent = testimonials[index].name;
+  imageEl.src = testimonials[index].image;
+}
+
+nextBtn.onclick = function () {
+  index++;
+  if (index >= testimonials.length) index = 0;
+  updateSlide();
+};
+
+prevBtn.onclick = function () {
+  index--;
+  if (index < 0) index = testimonials.length - 1;
+  updateSlide();
+};
+
+updateSlide();
+</script>
+
+
+
+
+  <!-- thried silde   End  .-->
+  <!-- Fixed Shop Button -->
+  <a href="products.html" class="fixed-shop-btn">
+    Shop Now
+  </a>
+
+  <!-- fouth silde  streds   .-->
+
+  <section class="products-section">
+
+    <h2>Best Selling Products</h2>
+
+    <div class="scroll-wrapper">
+
+      <div class="card">
+        <div class="image-box">
+          <img src="cards/Dudoudle cleansers .webp" alt="">
+        </div>
+        <p>Dudoudle Cleansers</p>
+      </div>
+
+      <div class="card">
+        <div class="image-box">
+          <img src="cards/milk tonner .jpg" alt="">
+        </div>
+        <p>Milk Toner</p>
+      </div>
+
+      <div class="card">
+        <div class="image-box">
+          <img src="cards/skin cera .webp" alt="">
+        </div>
+        <p>Skin Cera</p>
+      </div>
+
+
+      <div class="card">
+        <div class="image-box">
+          <img src="cards/plume.webp" alt="">
+        </div>
+        <p>Plume</p>
+      </div>
+
+
+
+
+
+
+      <div class="card">
+        <div class="image-box">
+          <img src="cards/moisturizers .webp" alt="">
+        </div>
+        <p>Moisturizers</p>
+      </div>
+
+
+      <div class="card">
+        <div class="image-box">
+          <img src="cards/reequil.avif" alt="">
+        </div>
+        <p>Reequil</p>
+      </div>
+
+
+
+      <div class="card">
+        <div class="image-box">
+          <img src="cards/suncream .webp" alt="">
+        </div>
+        <p>Suncream</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- fouth silde end    -->
+
+
+  <!-- fivth silde streds   -->
+
+  <section class="before-after-section">
+    <div class="compare-container" id="compare">
+
+
+
+      <!-- AFTER -->
+      <img src="eeczeme afther.png" class="image hidden" id="afterImg">
+
+      <!-- BEFORE -->
+      <img src="eeczeme.webp" class="image" id="beforeImg">
+
+      <!-- Center Icon -->
+      <div class="center-indicator">
+        ⇆
+      </div>
+
+      <!-- Labels -->
+      <div class="label before-label">Before</div>
+      <div class="label after-label">After</div>
+
+      <!-- Instruction Text -->
+      <div class="instruction">
+        Move your cursor to compare
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- fivth silde streds end -->
+
+
+  <!-- sixth  silde streds   -->
+
+  <section class="articles-section">
+    <div class="articles-header">
+      <h2>Latest Articles</h2>
+    </div>
+
+    <div class="articles-wrapper" id="articlesWrapper">
+
+      <!-- CARD 1 -->
+      <div class="article-card">
+        <img src="cards/plumes vitamin c .webp" alt="">
+        <div class="article-content">
+          <div class="tags">
+            <span>Feb 22, 2024</span>
+            <span>Products</span>
+          </div>
+          <h3>Best Practices for Using Vitamin C in Your Routine</h3>
+          <p>Donec sed est felis purus donec porta at. Aenean pharetra odio natoque lorem.</p>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="article-card">
+        <img src="cards/skin care.avif" alt="">
+        <div class="article-content">
+          <div class="tags">
+            <span>Feb 22, 2024</span>
+            <span>Tips</span>
+          </div>
+          <h3>How to Build a Skincare Routine for Your Skin Type</h3>
+          <p>Aenean pharetra odio natoque lorem cras sagittis lectus sit sed.</p>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="article-card">
+        <img src="cards/Simple_Skincare_Refreshing_Face_Wash_with_Pro-Vit_B5_Vit_E_3_600x600.webp" alt="">
+        <div class="article-content">
+          <div class="tags">
+            <span>Feb 22, 2024</span>
+            <span>Skincare</span>
+          </div>
+          <h3>Simple Skincare Tips to Achieve Clear, Healthy Skin</h3>
+          <p>Pharetra odio natoque lorem cras sagittis lectus sit sed.</p>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="article-card">
+        <img src="cards/nignt creams .webp" alt="">
+        <div class="article-content">
+          <div class="tags">
+            <span>Mar 10, 2024</span>
+            <span>Beauty</span>
+          </div>
+          <h3>Night Skincare Routine That Actually Works</h3>
+          <p>Ornare diam ac tristique senectus accumsan habitasse orci orci.</p>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="article-card">
+        <img src="cards/morking .webp" alt="">
+        <div class="article-content">
+          <div class="tags">
+            <span>Apr 02, 2024</span>
+            <span>Routine</span>
+          </div>
+          <h3>Morning Glow Ritual for Radiant Skin</h3>
+          <p>Donec sed est felis purus donec porta at.</p>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="article-card">
+        <img src="Acne images.jpg" alt="">
+        <div class="article-content">
+          <div class="tags">
+            <span>Apr 12, 2024</span>
+            <span>Tips</span>
+          </div>
+          <h3>How to Reduce Acne Naturally</h3>
+          <p>Aenean pharetra odio natoque lorem cras sagittis lectus.</p>
+        </div>
+      </div>
+
+      <!-- CARD 7 -->
+      <div class="article-card">
+        <img src="cards/hydration .webp" alt="">
+        <div class="article-content">
+          <div class="tags">
+            <span>May 01, 2024</span>
+            <span>Health</span>
+          </div>
+          <h3>Hydration Secrets Dermatologists Recommend</h3>
+          <p>Ornare diam ac tristique senectus accumsan.</p>
+        </div>
+      </div>
+
+      <!-- CARD 8 -->
+      <div class="article-card">
+        <img src="cards/plume skin tonners.webp" alt="">
+        <div class="article-content">
+          <div class="tags">
+            <span>May 15, 2025</span>
+            <span>Glow</span>
+          </div>
+          <h3>Niacinamide & Rice Water<br> CTMS Combo </h3>
+          <p>Face Wash, Toner, Moisturizer & Sunscreen</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- sixth  silde end  -->
+
+  <!-- seven silde streds  -->
+
+  <section class="people-section">
+    <h2 class="section-title">What Everyone Is Searching</h2>
+
+    <div class="tags-container">
+      <div class="tag">LumiPure Gentle Clean Wash</div>
+      <div class="tag">AquaBloom Hydrating Cleanser</div>
+      <div class="tag">SilkVeil Cream Cleanse</div>
+      <div class="tag">GlowRise Refresh Gel Wash</div>
+      <div class="tag">MoistureLuxe Repair Cream</div>
+      <div class="tag">BrightAura Radiance Serum</div>
+
+      <div class="tag">PlumpDew Skin Restore Cream</div>
+      <div class="tag">MoistureLuxe Repair Cream</div>
+      <div class="tag">SEvenTone Glow Corrector</div>
+      <div class="tag">RefineGlow Micro Scrub</div>
+      <div class="tag">YouthLift Retinol Concentrate</div>
+
+      <div class="tag">SoftBuff Gentle Skin Scrub</div>
+      <div class="tag">MicroGlow Refining Exfoliant</div>
+      <div class="tag">FreshPolish Skin Smoother</div>
+
+      <div class="tag">HydraVelvet Moisture Boost</div>
+      <div class="tag">GlowCorrect Vitamin Serum</div>
+      <div class="tag">MicroGlow Refining Exfoliant</div>
+
+
+    </div>
+  </section>
+
+
+  <!-- seven silde end   -->
+
+
+
+  <!-- eight  silde streds   -->
+
+
+
+
+
+
+  <!-- nith silde streds  -->
+
+  <footer class="footer">
+
+    <div class="footer-container">
+
+      <!-- Column 1 -->
+      <div class="footer-col">
+        <h2 class="footer-logo">LumiSkin</h2>
+        <p>
+          Donec sed est felis purus donec porta at.
+          Aenean pharetra odio natoque lorem cras sagittis lectus sit sed.
+          Ornare diam ac tristique senectus accumsan habitasse orci orci.
+        </p>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="skincare.html">Skincare</a></li>
+          <li><a href="products.html">products</a></li>
+          <li><a href="Ai anianlys.html">Ai Anianlys</a></li>
+          <li><a href="about.html">About as</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="footer-col">
+        <h3>HOME</h3>
+        <ul>
+          <li><a href="#">Start Analysis</a></li>
+          <li><a href="#">Step By Step.</a></li>
+          <li><a href="#">We Detect</a></li>
+          <li><a href="#">Why Choose</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4 -->
+      <div class="footer-col">
+        <h3>Skincare</h3>
+        <ul>
+          <li><a href="#">Best Skincare</a></li>
+          <li><a href="#">Selling Products</a></li>
+          <li><a href="#">Latest Articles</a></li>
+          <li><a href="#">What Everyone Is Searching</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 5 -->
+      <div class="footer-col">
+        <h3>About As</h3>
+        <ul>
+          <li><a href="#">Our Mission</a></li>
+          <li><a href="#">Our Journey</a></li>
+          <li><a href="#">Our Team</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 6 -->
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="#">Call</a></li>
+          <li><a href="#">Email</a></li>
+          <li><a href="#">Live Chat</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 7 -->
+      <div class="footer-col">
+        <h3>Our Newsletter</h3>
+        <p>
+          Subscribe to our newsletter to get updates about our grand offers.
+        </p>
+
+        <form class="subscribe-box" id="subscribeForm">
+          <input type="email" id="emailInput" placeholder="Enter your email-address" required>
+          <button type="submit">SEND</button>
+        </form>
+
+        <small id="emailMessage"></small>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 LumiSkin. All Rights Reserved.</p>
+    </div>
+
+  </footer>
+  <!-- nith silde end  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- JS script cards code  -->
+
+
+
+
+
+
+
+
+<script>
+
+const profileIcon = document.getElementById("profileIcon");
+const profileMenu = document.getElementById("profileMenu");
+const logoutBtn = document.getElementById("logoutBtn");
+
+/* open dropdown */
+
+profileIcon.onclick = function(){
+
+if(profileMenu.style.display === "block"){
+profileMenu.style.display = "none";
+}else{
+profileMenu.style.display = "block";
+}
+
+};
+
+/* logout */
+
+logoutBtn.onclick = function(){
+
+window.location.href = "login.html";
+
+};
+
+</script>
+
+
+
+  <!-- JS -->
+  <script src="skincare.js"></script>
+
+</body>
+
+</html>

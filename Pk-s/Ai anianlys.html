@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Skin AI Model Test</title>
+
+    <link rel="stylesheet" href="NewAianianlys.css">
+    <link rel="stylesheet" href="Allpages.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        // Prevent layout flicker instantly by checking URL parameters before the DOM displays
+        if (window.location.search.includes('return=true')) {
+            document.write(`
+                <style>
+                    #uploadScreen, #concernScreen { display: none !important; }
+                    .fade-in { opacity: 1 !important; transform: none !important; transition: none !important; }
+                    .delay-1, .delay-2, .delay-3 { transition-delay: 0s !important; }
+                    .dashboard-card { display: block !important; }
+                </style>
+            `);
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="wrapper" style="width: 1400px; max-width: 95%;">
+
+        <header style="width: 100%;">
+
+            <div class="status-pill">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">Checking...</span>
+            </div>
+
+        </header>
+
+
+        <!-- STEP 1 : IMAGE UPLOAD -->
+
+        <section id="uploadScreen" class="screen active">
+
+            <div class="container">
+
+                <div class="back" id="backHome">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </div>
+
+                <div class="header">
+                    <h1>Upload Your <span>Selfie</span></h1>
+                    <p>Follow the guide below for best results</p>
+                </div>
+
+                <div class="main">
+
+                    <!-- LEFT CARD -->
+
+                    <div class="card left-card">
+
+                        <h2>Camera Guide</h2>
+
+                        <div class="camera-box">
+
+                            <div class="overlay-text">
+                                Position your face<br>within the oval
+                            </div>
+
+                            <div class="oval"></div>
+
+                            <video id="video" autoplay playsinline></video>
+
+                            <canvas id="canvas" style="display:none;"></canvas>
+
+                            <img id="previewImage" style="display:none;" />
+
+                        </div>
+
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+
+                        <button class="btn-gradient" id="cameraBtn">
+                            <i class="fa-solid fa-camera"></i> Take Photo
+                        </button>
+
+                        <button class="btn-outline" id="galleryBtn">
+                            <i class="fa-solid fa-upload"></i> Upload from Gallery
+                        </button>
+
+                        <button class="btn-success hidden" id="continueBtn">
+                            Continue to Analysis
+                        </button>
+
+                    </div>
+
+
+                    <!-- RIGHT SIDE -->
+
+                    <div class="right-section">
+
+                        <div class="card tips-card">
+
+                            <h3>
+                                <i class="fa-solid fa-lightbulb"></i> Tips for Best Results
+                            </h3>
+
+                            <ul>
+                                <li><i class="fa-regular fa-circle"></i> Use natural daylight</li>
+                                <li><i class="fa-regular fa-circle"></i> Face camera directly</li>
+                                <li><i class="fa-regular fa-circle"></i> Remove makeup</li>
+                                <li><i class="fa-regular fa-circle"></i> Entire face visible</li>
+                                <li><i class="fa-regular fa-circle"></i> Avoid shadows</li>
+                            </ul>
+
+                        </div>
+
+                        <div class="card small-card">
+                            <h4>✨ Pro Tip</h4>
+                            <p>Use similar lighting each time.</p>
+                        </div>
+
+                        <div class="card small-card">
+                            <h4>🔒 Privacy Note</h4>
+                            <p>Your photo is encrypted and secure.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STEP 2 : SKIN CONCERNS -->
+
+        <section class="screen" id="concernScreen">
+
+            <div class="back" id="backToUpload">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </div>
+
+            <div class="header">
+                <h1>Tell Us About Your <span>Skin Concerns</span></h1>
+                <p>Select all that apply to help us personalize your analysis</p>
+            </div>
+
+            <div class="concern-card">
+
+                <h3>What skin issues are you experiencing?</h3>
+
+                <div class="concern-grid">
+
+                    <button class="concern" data-value="Pigmentation">
+                        <i class="fa-solid fa-palette"></i>
+                        <span>Pigmentation</span>
+                    </button>
+
+                    <button class="concern" data-value="Acne">
+                        <i class="fa-solid fa-circle-dot"></i>
+                        <span>Acne</span>
+                    </button>
+
+                    <button class="concern" data-value="Wrinkles">
+                        <i class="fa-solid fa-grip-lines"></i>
+                        <span>Wrinkles</span>
+                    </button>
+
+                    <button class="concern" data-value="Dryness">
+                        <i class="fa-solid fa-sun"></i>
+                        <span>Dryness</span>
+                    </button>
+
+                    <button class="concern" data-value="Oiliness">
+                        <i class="fa-solid fa-droplet"></i>
+                        <span>Oiliness</span>
+                    </button>
+
+                </div>
+
+                <div class="textarea-box">
+
+                    <label>Additional details (optional)</label>
+
+                    <textarea id="description" placeholder="Tell us more about your skin concerns...">
+</textarea>
+
+                </div>
+
+                <button class="btn-gradient next-btn" id="startAnalysis">
+                    Continue to Analysis
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- STEP 3 : AI LOADING -->
+
+        <section id="loadingScreen" class="screen">
+
+            <div class="loading-container">
+
+                <div class="loading-card">
+
+                    <div class="ai-icon">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+
+                    <h1>
+                        <span class="gradient-text">AI Analysis</span> in Progress
+                    </h1>
+
+                    <p class="sub-text">
+                        Our advanced AI is analyzing your skin in real-time
+                    </p>
+
+                    <div class="progress-wrapper">
+
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+
+                        <div class="progress-percent" id="progressPercent">0%</div>
+
+                    </div>
+
+                    <p class="loading-status" id="loadingStatus">
+                        Measuring skin texture...
+                    </p>
+
+                    <div class="info-box">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>Did you know? Your skin renews every 28 days.</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STEP 4 : SEVERITY MODEL -->
+
+        <div id="severityCard" style="display:none" class="dashboard-card">
+
+            <div class="back"
+                onclick="document.getElementById('severityCard').style.display='none'; document.getElementById('concernScreen').classList.add('active'); window.scrollTo({top: 0, behavior: 'smooth'});"
+                style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px; color: #111; font-size: 14px; font-weight: 500; margin-bottom: 20px;">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </div>
+
+            <div class="result-panel visible" id="skinResult">
+                <div id="severityLabel"></div>
+                <div id="lifestyleTips"></div>
+                <div class="json-box" id="skinJson" style="display:none;"></div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div style="text-align: center; margin-top: 40px; margin-bottom: 20px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;"
+                class="fade-in delay-3">
+                <button class="btn-gradient action-btn" onclick="window.open('model2.html', '_blank')"
+                    style="font-size: 16px; padding: 15px 30px;">
+                    <i class="fa-solid fa-sliders"></i> Open Model 2 Simulator
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="NewAianian.js"></script>
+    <script src="upload.js"></script>
+    <script src="api.js"></script>
+
+    <script>
+        function downloadReport() {
+            const element = document.getElementById('skinResult');
+            const opt = {
+                margin: 0.5,
+                filename: 'Face_Analysis_Report.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            // New Promise-based usage:
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('return') === 'true') {
+                try {
+                    const localImg = localStorage.getItem('lastImageResult');
+                    const localSkin = localStorage.getItem('lastSkinResult');
+                    if (localImg && localSkin) {
+                        const imgRes = JSON.parse(localImg);
+                        const skinRes = JSON.parse(localSkin);
+                        // Hide initial screens and prevent flashes
+                        const uploadScreen = document.getElementById("uploadScreen");
+                        const concernScreen = document.getElementById("concernScreen");
+                        if (uploadScreen) uploadScreen.classList.remove("active");
+                        if (concernScreen) concernScreen.classList.remove("active");
+                        // Render full results natively
+                        if (typeof showResults === 'function') {
+                            showResults(imgRes, skinRes);
+                        }
+                    }
+                } catch (e) {
+                    console.warn("Could not restore state", e);
+                }
+            }
+        });
+    </script>
+    <!-- Floating Download Button -->
+    <button id="downloadReportBtn" onclick="downloadReport()"
+        style="display: none; position: fixed; bottom: 65px; right: 25px; width: 55px; height: 55px; border-radius: 50%; background: linear-gradient(135deg, #6a8dff, #ff8ab5); color: white; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 20px; cursor: pointer; z-index: 10000; align-items: center; justify-content: center; transition: transform 0.2s;">
+        <i class="fa-solid fa-download"></i>
+    </button>
+
+    <!-- Global Disclaimer -->
+    <div
+        style="background-color: #b86a9a; color: white; text-align: center; padding: 12px 20px; position: fixed; bottom: 0; left: 0; width: 100%; font-size: 14px; font-weight: 500; z-index: 9999; box-sizing: border-box;">
+        Disclaimer: The AI Skin Analysis and Lifestyle Simulator are for informational purposes only and do not replace
+        professional medical advice, diagnosis, or treatment.
+    </div>
+</body>
+
+</html>

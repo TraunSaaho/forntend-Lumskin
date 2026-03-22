@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lamp Login UI</title>
+<link rel="stylesheet" href="newlogin.css">
+</head>
+
+<body>
+
+<div class="main">
+
+    <!-- Lamp -->
+    <div class="lamp-box">
+        <img src="lamp-off.png" id="lamp">
+    </div>
+
+    <!-- Auth Container -->
+    <div class="auth-container" id="authBox">
+
+        <!-- LOGIN -->
+        <div class="login" id="loginBox">
+            <h2>Welcome Back</h2>
+
+            <input type="text" placeholder="Username">
+            <input type="password" placeholder="Password">
+
+            <button class="btn">Login</button>
+
+            <button class="google">Continue with Google</button>
+
+            <p>
+            Don't have an account?
+            <span id="showSignup">Sign Up</span>
+            </p>
+        </div>
+
+
+        <!-- SIGNUP -->
+        <div class="signup" id="signupBox">
+
+            <h2>Create Account</h2>
+
+            <input type="text" placeholder="Full Name">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+
+            <button class="btn">Sign Up</button>
+
+            <button class="google">Continue with Google</button>
+
+            <p>
+            Already have account?
+            <span id="showLogin">Login</span>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="new login.js"></script>
+
+</body>
+</html>

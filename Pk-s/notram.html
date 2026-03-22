@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skin AI — Model Test Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #080b10;
+    --surface:   #0e1318;
+    --border:    #1e2730;
+    --accent1:   #00e5b0;
+    --accent2:   #ff5c8a;
+    --accent3:   #7b6cff;
+    --text:      #e8edf2;
+    --muted:     #5a6475;
+    --radius:    14px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Animated grid bg ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(0,229,176,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,176,.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  /* Glow blobs */
+  .glow-blob {
+    position: fixed; border-radius: 50%; filter: blur(120px);
+    pointer-events: none; z-index: 0; opacity: .18;
+  }
+  .glow-blob.g1 { width: 500px; height: 500px; background: var(--accent1); top: -100px; left: -100px; animation: drift1 12s ease-in-out infinite alternate; }
+  .glow-blob.g2 { width: 400px; height: 400px; background: var(--accent2); bottom: -80px; right: -80px; animation: drift2 14s ease-in-out infinite alternate; }
+  .glow-blob.g3 { width: 300px; height: 300px; background: var(--accent3); top: 40%; left: 50%; animation: drift3 10s ease-in-out infinite alternate; }
+
+  @keyframes drift1 { from{transform:translate(0,0)} to{transform:translate(60px,80px)} }
+  @keyframes drift2 { from{transform:translate(0,0)} to{transform:translate(-50px,-60px)} }
+  @keyframes drift3 { from{transform:translate(-50%,-50%) rotate(0deg)} to{transform:translate(-50%,-50%) rotate(360deg)} }
+
+  /* ── Layout ── */
+  .wrapper {
+    position: relative; z-index: 1;
+    max-width: 1100px; margin: 0 auto; padding: 0 24px 80px;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 48px 0 40px;
+    display: flex; align-items: center; gap: 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .logo-mark {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent1), var(--accent3));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; flex-shrink: 0;
+    box-shadow: 0 0 30px rgba(0,229,176,.3);
+  }
+  .header-text h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+  .header-text p  { color: var(--muted); font-size: 13px; font-family: 'DM Mono', monospace; margin-top: 3px; }
+  .status-pill {
+    margin-left: auto; display: flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 8px 16px; border-radius: 100px;
+    font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted);
+  }
+  .status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--muted); transition: background .4s;
+  }
+  .status-dot.online { background: var(--accent1); box-shadow: 0 0 10px var(--accent1); animation: pulse-dot 2s infinite; }
+  .status-dot.offline { background: var(--accent2); }
+  @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* ── Grid ── */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media(max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    animation: fadeUp .5s ease both;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .card:nth-child(2) { animation-delay: .1s; }
+
+  .card-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .card-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .card-icon.teal  { background: rgba(0,229,176,.12); }
+  .card-icon.pink  { background: rgba(255,92,138,.12); }
+  .card-header h2  { font-size: 15px; font-weight: 700; }
+  .card-header p   { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 2px; }
+
+  .card-body { padding: 24px; }
+
+  /* ── Image Upload Zone ── */
+  .upload-zone {
+    border: 2px dashed var(--border); border-radius: 10px;
+    padding: 32px 20px; text-align: center; cursor: pointer;
+    transition: border-color .3s, background .3s; position: relative;
+    overflow: hidden;
+  }
+  .upload-zone:hover { border-color: var(--accent1); background: rgba(0,229,176,.03); }
+  .upload-zone.has-image { border-color: var(--accent1); border-style: solid; padding: 0; }
+  .upload-zone input { position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0; }
+  .upload-zone img  { width:100%; height:220px; object-fit:cover; display:block; border-radius:8px; }
+  .upload-zone .placeholder { pointer-events: none; }
+  .upload-icon { font-size: 36px; margin-bottom: 10px; }
+  .upload-text { font-size: 14px; color: var(--muted); }
+  .upload-text strong { color: var(--accent1); }
+
+  /* ── Form Fields ── */
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .5px; }
+  .field input, .field select {
+    background: var(--bg); border: 1px solid var(--border);
+    color: var(--text); border-radius: 8px;
+    padding: 9px 12px; font-size: 13px; font-family: 'Syne', sans-serif;
+    outline: none; transition: border-color .2s;
+    -webkit-appearance: none;
+  }
+  .field input:focus, .field select:focus { border-color: var(--accent3); }
+  .field select option { background: var(--surface); }
+
+  .field-full { grid-column: 1 / -1; }
+  .range-wrap { position: relative; }
+  .range-val {
+    position: absolute; right: 0; top: 0;
+    font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent3);
+  }
+  input[type=range] {
+    -webkit-appearance: none; width: 100%; height: 4px;
+    background: var(--border); border-radius: 4px; outline: none; padding: 0; border: none;
+    margin-top: 12px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 16px; height: 16px;
+    border-radius: 50%; background: var(--accent3); cursor: pointer;
+    box-shadow: 0 0 8px var(--accent3);
+  }
+
+  /* ── Checkboxes ── */
+  .concern-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .pill {
+    padding: 5px 12px; border-radius: 100px; font-size: 12px; cursor: pointer;
+    border: 1px solid var(--border); color: var(--muted);
+    transition: all .2s; user-select: none;
+  }
+  .pill:hover { border-color: var(--accent3); color: var(--text); }
+  .pill.active { background: rgba(123,108,255,.15); border-color: var(--accent3); color: var(--accent3); }
+
+  /* ── Buttons ── */
+  .btn {
+    width: 100%; padding: 13px; border: none; border-radius: 10px;
+    font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+    cursor: pointer; transition: all .25s; position: relative; overflow: hidden;
+    letter-spacing: .3px;
+  }
+  .btn::after {
+    content:''; position:absolute; inset:0;
+    background: rgba(255,255,255,.05); opacity:0; transition: opacity .2s;
+  }
+  .btn:hover::after { opacity:1; }
+  .btn:active { transform: scale(.98); }
+  .btn-teal {
+    background: linear-gradient(135deg, var(--accent1), #00b88e);
+    color: #000; box-shadow: 0 4px 20px rgba(0,229,176,.25);
+  }
+  .btn-pink {
+    background: linear-gradient(135deg, var(--accent2), #e0315e);
+    color: #fff; box-shadow: 0 4px 20px rgba(255,92,138,.25);
+  }
+  .btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+  /* ── Results ── */
+  .result-panel {
+    margin-top: 20px; border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+    display: none;
+  }
+  .result-panel.visible { display: block; animation: fadeUp .4s ease; }
+  .result-top {
+    padding: 16px 20px;
+    background: rgba(0,0,0,.3);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .result-label {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 1px; color: var(--muted);
+  }
+  .result-value { font-size: 20px; font-weight: 800; margin-top: 2px; }
+  .result-badge {
+    margin-left: auto; padding: 4px 12px; border-radius: 100px; font-size: 11px;
+    font-family: 'DM Mono', monospace;
+  }
+  .badge-teal { background: rgba(0,229,176,.15); color: var(--accent1); }
+  .badge-pink { background: rgba(255,92,138,.15); color: var(--accent2); }
+  .badge-purple { background: rgba(123,108,255,.15); color: var(--accent3); }
+
+  .result-body { padding: 20px; }
+
+  /* Probability bars */
+  .prob-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .prob-name { width: 130px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+  .prob-bar-wrap { flex: 1; background: var(--border); border-radius: 4px; height: 6px; overflow: hidden; }
+  .prob-bar { height: 100%; border-radius: 4px; transition: width 1s cubic-bezier(.2,.8,.2,1); width: 0; }
+  .prob-val { width: 38px; text-align: right; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); }
+  .prob-row.top .prob-name { color: var(--text); font-weight: 600; }
+  .prob-row.top .prob-val  { color: var(--accent1); }
+
+  /* Routine cards */
+  .routine-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .routine-block { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .routine-block h4 { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; font-family: 'DM Mono', monospace; }
+  .routine-block li { font-size: 13px; color: var(--text); padding: 4px 0; list-style: none; display: flex; align-items: flex-start; gap: 6px; }
+  .routine-block li::before { content:'›'; color: var(--accent1); font-weight: 700; flex-shrink: 0; }
+
+  /* Tips */
+  .tip { display: flex; gap: 10px; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; font-size: 13px; }
+
+  /* Severity gauge */
+  .severity-display { text-align: center; padding: 16px 0 8px; }
+  .gauge-wrap { width: 120px; height: 60px; margin: 0 auto 10px; position: relative; overflow: hidden; }
+  .gauge-svg { width: 100%; height: 100%; }
+  .sev-label { font-size: 22px; font-weight: 800; }
+  .sev-sub   { font-size: 12px; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 2px; }
+
+  /* Loading spinner */
+  .spinner {
+    display: none; width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.15); border-top-color: #fff;
+    animation: spin .7s linear infinite; margin: 0 auto;
+  }
+  .btn.loading .spinner { display: inline-block; }
+  .btn.loading .btn-text { opacity: 0; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  .btn-inner { position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; height: 20px; }
+
+  /* Footer divider */
+  .section-divider {
+    grid-column: 1 / -1; border: none;
+    border-top: 1px solid var(--border); margin: 8px 0;
+  }
+
+  .tag { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-family: 'DM Mono', monospace; }
+
+  /* JSON viewer */
+  .json-box {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 16px; font-family: 'DM Mono', monospace; font-size: 12px;
+    color: var(--muted); max-height: 180px; overflow-y: auto; white-space: pre;
+    line-height: 1.6;
+  }
+  .json-box .k { color: var(--accent3); }
+  .json-box .s { color: var(--accent1); }
+  .json-box .n { color: var(--accent2); }
+
+  .mt12 { margin-top: 12px; }
+  .mt20 { margin-top: 20px; }
+  .section-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-family: 'DM Mono', monospace; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<div class="glow-blob g1"></div>
+<div class="glow-blob g2"></div>
+<div class="glow-blob g3"></div>
+
+<div class="wrapper">
+
+  <!-- Header -->
+  <header>
+    <div class="logo-mark">🧬</div>
+    <div class="header-text">
+      <h1>Skin AI — Model Test Lab</h1>
+      <p>Testing both models: Keras MobileNetV2 &amp; XGBoost Skin Severity</p>
+    </div>
+    <div class="status-pill">
+      <div class="status-dot" id="statusDot"></div>
+      <span id="statusText">Checking…</span>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <!-- ══════════════════════════════════════════════
+         MODEL 1: Keras Image Classifier
+    ══════════════════════════════════════════════ -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon teal">👁</div>
+        <div>
+          <h2>Model 1 — Image Classifier</h2>
+          <p>Keras MobileNetV2 · 224×224 · 8 classes</p>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <!-- Upload zone -->
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="imageInput" accept="image/*">
+          <div class="placeholder">
+            <div class="upload-icon">📸</div>
+            <div class="upload-text">Click or drag a <strong>face photo</strong><br>to analyze skin condition</div>
+          </div>
+          <img id="previewImg" style="display:none">
+        </div>
+
+        <!-- Concerns -->
+        <div style="margin-top:16px">
+          <div class="section-title">Skin Concerns (optional)</div>
+          <div class="concern-pills" id="concernPills">
+            <span class="pill" data-v="Acne">Acne</span>
+            <span class="pill" data-v="Pigmentation">Pigmentation</span>
+            <span class="pill" data-v="Wrinkles">Wrinkles</span>
+            <span class="pill" data-v="Dryness">Dryness</span>
+            <span class="pill" data-v="Oiliness">Oiliness</span>
+            <span class="pill" data-v="Redness">Redness</span>
+            <span class="pill" data-v="Dark Circles">Dark Circles</span>
+          </div>
+        </div>
+
+        <button class="btn btn-teal mt20" id="analyzeImageBtn" onclick="runImageModel()">
+          <div class="btn-inner">
+            <div class="spinner"></div>
+            <span class="btn-text">▶️ Run Image Model</span>
+          </div>
+        </button>
+
+        <!-- Result panel -->
+        <div class="result-panel" id="imageResult">
+          <div class="result-top">
+            <div>
+              <div class="result-label">Detected Condition</div>
+              <div class="result-value" id="detectedClass">—</div>
+            </div>
+            <div class="result-badge badge-teal" id="confBadge">—% confidence</div>
+          </div>
+          <div class="result-body">
+            <div class="section-title">All Probabilities</div>
+            <div id="probBars"></div>
+
+            <div class="section-title mt20">Recommended Routine</div>
+            <div class="routine-cols" id="routineOutput"></div>
+
+            <div class="section-title mt20">Raw JSON Response</div>
+            <div class="json-box" id="imageJson"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         MODEL 2: XGBoost Skin Severity
+    ══════════════════════════════════════════════ -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon pink">📊</div>
+        <div>
+          <h2>Model 2 — Severity Predictor</h2>
+          <p>XGBoost · 30 features · 7-class severity</p>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="field-grid">
+
+          <div class="field">
+            <label>Age</label>
+            <input type="number" id="f_age" value="25" min="10" max="80">
+          </div>
+          <div class="field">
+            <label>Gender</label>
+            <select id="f_gender">
+              <option value="1">Female</option>
+              <option value="0">Male</option>
+              <option value="2">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Skin Type</label>
+            <select id="f_skin_type">
+              <option value="0">Normal</option>
+              <option value="1">Oily</option>
+              <option value="2">Dry</option>
+              <option value="3">Combination</option>
+              <option value="4">Sensitive</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Climate</label>
+            <select id="f_climate">
+              <option value="0">Dry</option>
+              <option value="1">Tropical</option>
+              <option value="2">Temperate</option>
+              <option value="3">Cold</option>
+            </select>
+          </div>
+
+          <div class="field field-full">
+            <label>Sleep Hours — <span id="v_sleep">7</span>h</label>
+            <div class="range-wrap">
+              <input type="range" id="f_sleep" min="3" max="12" step="0.5" value="7"
+                oninput="document.getElementById('v_sleep').textContent=this.value">
+            </div>
+          </div>
+          <div class="field field-full">
+            <label>Water Intake — <span id="v_water">2.0</span> L/day</label>
+            <div class="range-wrap">
+              <input type="range" id="f_water" min="0.5" max="5" step="0.5" value="2"
+                oninput="document.getElementById('v_water').textContent=parseFloat(this.value).toFixed(1)">
+            </div>
+          </div>
+          <div class="field field-full">
+            <label>Sun Exposure — <span id="v_sun">2</span>h/day</label>
+            <div class="range-wrap">
+              <input type="range" id="f_sun" min="0" max="12" step="1" value="2"
+                oninput="document.getElementById('v_sun').textContent=this.value">
+            </div>
+          </div>
+          <div class="field field-full">
+            <label>Screen Time — <span id="v_screen">6</span>h/day</label>
+            <div class="range-wrap">
+              <input type="range" id="f_screen" min="0" max="16" step="1" value="6"
+                oninput="document.getElementById('v_screen').textContent=this.value">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Acne Present</label>
+            <select id="f_acne">
+              <option value="0">No</option>
+              <option value="1">Mild</option>
+              <option value="2" selected>Moderate</option>
+              <option value="3">Severe</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Redness Level</label>
+            <input type="number" id="f_redness" value="1.0" step="0.1" min="0" max="5">
+          </div>
+          <div class="field">
+            <label>Dryness Level</label>
+            <input type="number" id="f_dryness" value="0.5" step="0.1" min="0" max="5">
+          </div>
+          <div class="field">
+            <label>Pigmentation Level</label>
+            <input type="number" id="f_pigment" value="1.5" step="0.1" min="0" max="5">
+          </div>
+          <div class="field">
+            <label>Oiliness Level</label>
+            <input type="number" id="f_oil" value="2.0" step="0.1" min="0" max="5">
+          </div>
+          <div class="field">
+            <label>Inflammation Score</label>
+            <input type="number" id="f_inflam" value="1.8" step="0.1" min="0" max="10">
+          </div>
+
+          <div class="field">
+            <label>Smoking</label>
+            <select id="f_smoke">
+              <option value="0">No</option>
+              <option value="1">Occasionally</option>
+              <option value="2">Daily</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Physical Activity</label>
+            <select id="f_activity">
+              <option value="0">Sedentary</option>
+              <option value="1">Light</option>
+              <option value="2" selected>Moderate</option>
+              <option value="3">Active</option>
+              <option value="4">Very Active</option>
+            </select>
+          </div>
+
+        </div>
+
+        <button class="btn btn-pink mt20" id="analyzeSkinBtn" onclick="runSkinModel()">
+          <div class="btn-inner">
+            <div class="spinner"></div>
+            <span class="btn-text">▶️ Run Severity Model</span>
+          </div>
+        </button>
+
+        <!-- Result panel -->
+        <div class="result-panel" id="skinResult">
+          <div class="result-top">
+            <div>
+              <div class="result-label">Severity Level</div>
+              <div class="result-value" id="severityLabel">—</div>
+            </div>
+            <div class="result-badge badge-pink" id="riskBadge">Risk —</div>
+          </div>
+          <div class="result-body">
+
+            <div class="section-title">Lifestyle Tips</div>
+            <div id="lifestyleTips"></div>
+
+            <div class="section-title mt20">Raw JSON Response</div>
+            <div class="json-box" id="skinJson"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /grid -->
+</div><!-- /wrapper -->
+
+<script>
+const API = "https://lumiskin-ai-backend.onrender.com";
+
+// ── Health Check ────────────────────────────────────────────────────────────
+async function checkHealth() {
+  const dot  = document.getElementById("statusDot");
+  const text = document.getElementById("statusText");
+  try {
+    const r = await fetch(`${API}/api/health`);
+    const d = await r.json();
+    dot.className  = "status-dot online";
+    text.textContent = "Backend online";
+  } catch {
+    dot.className  = "status-dot offline";
+    text.textContent = "Backend offline";
+  }
+}
+checkHealth();
+setInterval(checkHealth, 8000);
+
+// ── Image Upload Preview ─────────────────────────────────────────────────────
+const imgInput   = document.getElementById("imageInput");
+const previewImg = document.getElementById("previewImg");
+const uploadZone = document.getElementById("uploadZone");
+
+imgInput.addEventListener("change", () => {
+  const file = imgInput.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    previewImg.src = e.target.result;
+    previewImg.style.display = "block";
+    uploadZone.querySelector(".placeholder").style.display = "none";
+    uploadZone.classList.add("has-image");
+  };
+  reader.readAsDataURL(file);
+});
+
+// ── Concern Pills ────────────────────────────────────────────────────────────
+document.querySelectorAll(".pill").forEach(p => {
+  p.addEventListener("click", () => p.classList.toggle("active"));
+});
+
+function getSelectedConcerns() {
+  return [...document.querySelectorAll(".pill.active")].map(p => p.dataset.v);
+}
+
+// ── Spinner helpers ──────────────────────────────────────────────────────────
+function setLoading(btnId, on) {
+  const btn = document.getElementById(btnId);
+  on ? btn.classList.add("loading") : btn.classList.remove("loading");
+  btn.disabled = on;
+}
+
+// ── MODEL 1: Image ───────────────────────────────────────────────────────────
+async function runImageModel() {
+  const imgSrc = previewImg.src;
+  if (!imgSrc || !imgSrc.startsWith("data:")) {
+    return shake("uploadZone", "Please upload an image first.");
+  }
+
+  setLoading("analyzeImageBtn", true);
+  try {
+    const res = await fetch(`${API}/api/analyze-image`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: imgSrc, concerns: getSelectedConcerns() })
+    });
+    const data = await res.json();
+    renderImageResult(data);
+  } catch (e) {
+    alert("❌ Could not reach backend.\nIs Flask running?\n\nError: " + e.message);
+  } finally {
+    setLoading("analyzeImageBtn", false);
+  }
+}
+
+function renderImageResult(d) {
+  const panel = document.getElementById("imageResult");
+  panel.classList.add("visible");
+
+  document.getElementById("detectedClass").textContent = d.predicted_class || "—";
+  document.getElementById("confBadge").textContent     = `${d.confidence ?? "—"}% confidence`;
+
+  // Probability bars
+  const bars = document.getElementById("probBars");
+  const probs = d.all_probabilities || {};
+  const sorted = Object.entries(probs).sort(([,a],[,b]) => b - a);
+  const topClass = sorted[0]?.[0];
+  bars.innerHTML = sorted.map(([cls, pct]) => `
+    <div class="prob-row ${cls === topClass ? 'top' : ''}">
+      <span class="prob-name">${cls}</span>
+      <div class="prob-bar-wrap">
+        <div class="prob-bar" style="background:${cls===topClass?'linear-gradient(90deg,#00e5b0,#00b88e)':'linear-gradient(90deg,#3a3f4f,#2a2f3a)'};width:0"
+          data-w="${pct}"></div>
+      </div>
+      <span class="prob-val">${pct}%</span>
+    </div>`).join("");
+
+  // Animate bars
+  requestAnimationFrame(() => {
+    document.querySelectorAll(".prob-bar[data-w]").forEach(b => {
+      b.style.width = b.dataset.w + "%";
+    });
+  });
+
+  // Routine
+  const routine = d.routine || {};
+  const routineEl = document.getElementById("routineOutput");
+  routineEl.innerHTML = `
+    <div class="routine-block">
+      <h4>☀️ Morning</h4>
+      <ul>${(routine.morning || []).map(i => `<li>${i}</li>`).join("")}</ul>
+    </div>
+    <div class="routine-block">
+      <h4>🌙 Evening</h4>
+      <ul>${(routine.evening || []).map(i => `<li>${i}</li>`).join("")}</ul>
+    </div>
+    <div class="routine-block">
+      <h4>✅ Look For</h4>
+      <ul>${(routine.ingredients_to_look_for || []).map(i => `<li>${i}</li>`).join("")}</ul>
+    </div>
+    <div class="routine-block">
+      <h4>❌ Avoid</h4>
+      <ul>${(routine.avoid || []).map(i => `<li>${i}</li>`).join("")}</ul>
+    </div>`;
+
+  document.getElementById("imageJson").innerHTML = syntaxHL(d);
+  panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// ── MODEL 2: Skin Severity ────────────────────────────────────────────────────
+async function runSkinModel() {
+  setLoading("analyzeSkinBtn", true);
+  const features = {
+    age:                     +document.getElementById("f_age").value,
+    gender:                  +document.getElementById("f_gender").value,
+    skin_type:               +document.getElementById("f_skin_type").value,
+    climate_type:            +document.getElementById("f_climate").value,
+    sleep_hours:             +document.getElementById("f_sleep").value,
+    water_intake_liters:     +document.getElementById("f_water").value,
+    sun_exposure_hours:      +document.getElementById("f_sun").value,
+    screen_time_hours:       +document.getElementById("f_screen").value,
+    acne_present:            +document.getElementById("f_acne").value > 0 ? 1 : 0,
+    acne_severity:           +document.getElementById("f_acne").value,
+    redness_level:           +document.getElementById("f_redness").value,
+    dryness_level:           +document.getElementById("f_dryness").value,
+    pigmentation_level:      +document.getElementById("f_pigment").value,
+    oiliness_level:          +document.getElementById("f_oil").value,
+    inflammation_score:      +document.getElementById("f_inflam").value,
+    smoking:                 +document.getElementById("f_smoke").value,
+    physical_activity_level: +document.getElementById("f_activity").value,
+    sunscreen_usage: 0.5, alcohol_consumption: 2,
+    skincare_routine_consistency: 1, makeup_usage_frequency: 2,
+    itching: 0, burning_sensation: 0, pore_visibility: 1,
+    duration_months: 6, affected_cheeks: 0.3, affected_forehead: 0.2,
+    affected_chin: 0.1, affected_nose: 0.4, affected_under_eyes: 0.1,
+  };
+
+  try {
+    const res = await fetch(`${API}/api/analyze-skin`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(features)
+    });
+    const data = await res.json();
+    renderSkinResult(data);
+  } catch (e) {
+    alert("❌ Could not reach backend.\nIs Flask running?\n\nError: " + e.message);
+  } finally {
+    setLoading("analyzeSkinBtn", false);
+  }
+}
+
+function renderSkinResult(d) {
+  const panel = document.getElementById("skinResult");
+  panel.classList.add("visible");
+
+  const sevColors = ["#00e5b0","#a3e635","#facc15","#fb923c","#f87171","#ff5c8a","#c084fc"];
+  const idx = d.severity_index ?? 0;
+  const col = sevColors[Math.min(idx, sevColors.length - 1)];
+
+  document.getElementById("severityLabel").textContent  = d.severity_label || "—";
+  document.getElementById("severityLabel").style.color  = col;
+  document.getElementById("riskBadge").textContent      = `Risk score: ${d.risk_score ?? "—"}`;
+
+  // Tips
+  const tips = d.lifestyle_tips || [];
+  document.getElementById("lifestyleTips").innerHTML = tips.map(t =>
+    `<div class="tip"><span>${t}</span></div>`
+  ).join("");
+
+  document.getElementById("skinJson").innerHTML = syntaxHL(d);
+  panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// ── JSON syntax highlighter ───────────────────────────────────────────────────
+function syntaxHL(obj) {
+  const s = JSON.stringify(obj, null, 2);
+  return s
+    .replace(/("[\w_\s]+")\s*:/g, '<span class="k">$1</span>:')
+    .replace(/:\s*(".*?")/g,  ': <span class="s">$1</span>')
+    .replace(/:\s*(-?\d+\.?\d*)/g, ': <span class="n">$1</span>')
+    .replace(/:\s*(true|false|null)/g, ': <span class="n">$1</span>');
+}
+
+// ── Shake helper ─────────────────────────────────────────────────────────────
+function shake(id, msg) {
+  const el = document.getElementById(id);
+  el.style.animation = "none";
+  el.offsetHeight; // reflow
+  el.style.borderColor = "var(--accent2)";
+  setTimeout(() => el.style.borderColor = "", 1200);
+  if (msg) alert(msg);
+}
+</script>
+</body>
+</html>

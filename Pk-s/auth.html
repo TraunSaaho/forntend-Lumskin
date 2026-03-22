@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LumiSkin — Sign In</title>
+    <meta name="description" content="Sign in or create your LumiSkin account for personalized AI skincare analysis.">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+
+<body class="auth-page" data-page="auth">
+
+    <!-- Navigation -->
+    <header class="navbar" id="navbar">
+        <div class="logo">LumiSkin</div>
+
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="skincare.html">Skincare</a>
+            <a href="Ai anianlys.html">Ai anianlys</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-icons">
+            <a href="auth.html"><i class="fa-regular fa-user" style="color: #ff6b00;"></i></a>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-regular fa-heart"></i>
+        </div>
+    </header>
+
+    <!-- Animated Background -->
+    <div class="auth-bg"></div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Auth Content -->
+    <div class="auth-wrapper">
+        <div class="auth-container">
+
+            <!-- Brand -->
+            <div class="auth-brand">
+                <a href="index.html" class="logo-text">Lumi<span>Skin</span></a>
+                <p>Your AI Skincare Journey Starts Here</p>
+            </div>
+
+            <!-- Glass Card -->
+            <div class="auth-card">
+
+                <!-- Tabs -->
+                <div class="auth-tabs">
+                    <button type="button" class="auth-tab active" id="loginTab">Login</button>
+                    <button type="button" class="auth-tab" id="signupTab">Sign Up</button>
+                </div>
+
+                <!-- ===== LOGIN FORM ===== -->
+                <form class="auth-form active" id="loginForm">
+
+                    <div class="input-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="you@example.com" required autocomplete="email">
+                        <i class="fa-regular fa-envelope input-icon"></i>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required
+                            autocomplete="current-password">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <button type="button" class="password-toggle"><i class="fa-regular fa-eye"></i></button>
+                    </div>
+
+                    <div style="text-align: right; margin-bottom: 16px;">
+                        <a href="Login/forgot-password.html" style="font-size: 13px; color: #ff6b00; text-decoration: none;">Forgot password?</a>
+                    </div>
+
+                    <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; cursor: pointer;">
+                        <input type="checkbox" id="rememberMe" style="cursor: pointer; width: 16px; height: 16px;">
+                        <span style="font-size: 14px;">Remember me</span>
+                    </label>
+
+                    <button type="submit" class="auth-submit">Login</button>
+
+                    <div class="auth-divider">
+                        <span></span>
+                        <p>or</p>
+                        <span></span>
+                    </div>
+
+                    <button type="button" class="google-btn">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                        Continue with Google
+                    </button>
+
+                </form>
+
+                <!-- ===== SIGNUP FORM ===== -->
+                <form class="auth-form" id="signupForm">
+
+                    <div class="input-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" placeholder="John Doe" required autocomplete="name">
+                        <i class="fa-regular fa-user input-icon"></i>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" placeholder="you@example.com" required
+                            autocomplete="email">
+                        <i class="fa-regular fa-envelope input-icon"></i>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="Min 8 characters" required minlength="8"
+                            autocomplete="new-password">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <button type="button" class="password-toggle"><i class="fa-regular fa-eye"></i></button>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="signupConfirmPassword">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" placeholder="••••••••" required minlength="8"
+                            autocomplete="new-password">
+                        <i class="fa-solid fa-shield-halved input-icon"></i>
+                        <button type="button" class="password-toggle"><i class="fa-regular fa-eye"></i></button>
+                    </div>
+
+                    <button type="submit" class="auth-submit">Create Account</button>
+
+                    <div class="auth-divider">
+                        <span></span>
+                        <p>or</p>
+                        <span></span>
+                    </div>
+
+                    <button type="button" class="google-btn">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                        Continue with Google
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="auth-footer">
+                <p>By continuing, you agree to LumiSkin's <a href="#">Terms</a> & <a href="#">Privacy Policy</a></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script type="module" src="Login/scriptlogin-enhanced.js"></script>
+
+</body>
+
+</html>

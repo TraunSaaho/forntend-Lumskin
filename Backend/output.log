@@ -1,0 +1,63 @@
+
+🚀 AI Skin Analysis Backend Running
+Health: https://lumiskin-ai-backend.onrender.com/api/health
+Image Model: https://lumiskin-ai-backend.onrender.com/api/analyze-image
+Skin Model: https://lumiskin-ai-backend.onrender.com/api/analyze-skin
+
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.1.15:10000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [20/Mar/2026 18:12:12] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:14:35] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:14:41] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:14:46] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:14:53] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:14:58] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:15:08] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:15:14] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:15:22] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:15:23] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:15:23] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:15:26] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:15:26] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:15:30] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:15:30] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:15:51] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:15:51] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:03] "OPTIONS /api/analyze-image HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:03] "OPTIONS /api/analyze-skin HTTP/1.1" 200 -
+Traceback (most recent call last):
+127.0.0.1 - - [20/Mar/2026 18:16:03] "POST /api/analyze-skin HTTP/1.1" 200 -
+  File "/Users/tarunkumar/Documents/UI & UX/Full stack Social Pracher/skin-care  frontend/Backend/app.py", line 333, in load_keras_model
+    import keras  # type: ignore
+    ^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'keras'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tarunkumar/Documents/UI & UX/Full stack Social Pracher/skin-care  frontend/Backend/app.py", line 354, in load_keras_model
+    import tensorflow as tf  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tensorflow'
+127.0.0.1 - - [20/Mar/2026 18:16:03] "POST /api/analyze-image HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:11] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:11] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:12] "OPTIONS /api/analyze-skin HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:12] "POST /api/analyze-skin HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:13] "POST /api/analyze-skin HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:14] "POST /api/analyze-skin HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:15] "POST /api/analyze-skin HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:15] "POST /api/analyze-skin HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:18] "OPTIONS /api/analyze-skin HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:18] "POST /api/analyze-skin HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:23] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:16:23] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:32:00] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 18:32:00] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 20:57:15] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [20/Mar/2026 20:57:15] "GET /api/health HTTP/1.1" 200 -

@@ -1,0 +1,387 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Georgia', serif;
+}
+
+body {
+    background: #e6dede !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 1200px;
+    height: 700px;
+    background: #f4eded !important;
+    border-radius: 20px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* LEFT SIDE */
+
+.left-section {
+    flex: 1;
+    padding: 60px;
+    position: relative;
+    background: #f2eaea;
+}
+
+.text-box {
+    background: #ffffff;   /* white background */
+    padding: 40px;
+    width: 80%;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border-radius: 6px;
+}
+
+
+
+
+.text-box h1 {
+    font-size: 38px;
+    color: #4a1f1f;
+    margin-bottom: 20px;
+}
+
+.text-box p {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.6;
+}
+
+.product-image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.product-image img {
+    width: 100%;
+    object-fit: cover;
+}
+
+/* RIGHT SIDE */
+
+.right-section {
+    flex: 1;
+    background: #f4eded;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    background: white;
+    padding: 50px;
+    width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.form-box h2 {
+    margin-bottom: 30px;
+    color: #4a1f1f;
+}
+
+form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+    background: transparent;
+    color: #333; /* Explicitly set color for visibility */
+}
+/* BUTTONS */
+
+.primary-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    background: #8b735c;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.primary-btn:hover {
+    background: #6f5a47;
+}
+
+.google-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+
+
+.form-box h2 {
+    margin-bottom: 30px;
+    color: #4a1f1f;
+}
+.switch-text a {
+    color: #8b735c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.switch-text a {
+    color: #8b735c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+body {
+    background: #e6dede;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* HOME */
+.home-content {
+    text-align: center;
+    padding-top: 200px;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    width: 400px;
+    border-radius: 15px;
+    animation: slideUp 0.6s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 12px;
+    background: #8b735c;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+
+.google-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+
+
+
+.google-btn img {
+    width: 20px;
+}
+
+#toggleAuth {
+    color: #8b735c;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ===== ENHANCED FEATURES ===== */
+
+/* Status Message Styling */
+#statusMessage {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading State */
+button:disabled {
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+}
+
+/* Spinner Animation */
+.spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 6px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Checkbox Styling */
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #ff6b00;
+    cursor: pointer;
+}
+
+/* Password Input Enhancements */
+.password-toggle {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.password-toggle:hover {
+    color: #ff6b00;
+}
+
+/* Input Focus Effects */
+input:focus {
+    outline: none;
+    border-color: #ff6b00 !important;
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    .left-section {
+        padding: 40px 20px;
+    }
+
+    .right-section {
+        padding: 40px 20px;
+    }
+
+    .text-box {
+        width: 100%;
+    }
+
+    .text-box h1 {
+        font-size: 28px;
+    }
+
+    .product-image {
+        max-height: 300px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #1a1a1a;
+    }
+
+    .container {
+        background: #2a2a2a;
+    }
+
+    .form-box {
+    background: #ffffff;
+    padding: 50px;
+    width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+    input,
+    button {
+        background: #444;
+        color: #fff;
+        border-color: #555;
+    }
+
+    .text-box {
+        background: #3a3a3a;
+        color: #fff;
+    }
+}
+
+/* Accessibility */
+button:focus-visible {
+    outline: 2px solid #ff6b00;
+    outline-offset: 2px;
+}
+
+input:focus-visible {
+    outline: 2px solid #ff6b00;
+    outline-offset: -2px;
+}
+
+/* Link Styling */
+a {
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+

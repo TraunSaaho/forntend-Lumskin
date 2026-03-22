@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin AI - Model 2</title>
+    <link rel="stylesheet" href="NewAianianlys.css">
+    <link rel="stylesheet" href="Allpages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body style="padding-bottom: 60px;">
+    <div class="wrapper" style="width: 1200px; max-width: 95%;">
+        <header style="display: flex; justify-content: flex-end; align-items: center; width: 100%;">
+            <div class="status-pill">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">Checking...</span>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="back" onclick="if(window.history.length > 1) { history.back(); } else { window.close(); }"
+                style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px; color: #111; font-size: 14px; font-weight: 500; margin-bottom: 20px;">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </div>
+
+            <div
+                style="display: flex; gap: 40px; align-items: flex-start; margin-top: 30px; justify-content: space-between;">
+                <!-- LEFT SIDE : MODEL 2 SIMULATOR -->
+                <div style="flex: 0 0 48%;">
+                    <div id="model2-simulator" class="glass-card">
+                        <div class="card-header"><i class="fa-solid fa-sliders text-purple"></i> Model 2: Lifestyle
+                            Severity Simulator</div>
+                        <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Adjust your lifestyle parameters
+                            below and run Model 2 (XGBoost) to recalculate your skin severity.</p>
+
+                        <div class="simulator-grid" style="grid-template-columns: 1fr; gap: 12px;">
+                            <div class="input-group">
+                                <label>Age</label>
+                                <input type="number" id="f_age" value="25" class="premium-input">
+                            </div>
+                             <div class="input-group">
+                                <label>Gender</label>
+                                <select id="f_gender" class="premium-input" onchange="runSkinModel()">
+                                    <option value="1">Female</option>
+                                    <option value="0">Male</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Skin Type</label>
+                                <select id="f_skin_type" class="premium-input" onchange="runSkinModel()">
+                                    <option value="0">Normal</option>
+                                    <option value="1">Oily</option>
+                                    <option value="2">Dry</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Sleep Hours</label>
+                                <input type="number" id="f_sleep" value="7" step="0.5" class="premium-input" onchange="runSkinModel()">
+                            </div>
+                            <div class="input-group">
+                                <label>Sunscreen</label>
+                                <select id="f_sunscreen" class="premium-input" onchange="runSkinModel()">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+
+                            </div>
+                            <div class="input-group">
+                                <label>Smoking</label>
+                                <select id="f_smoking" class="premium-input" onchange="runSkinModel()">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Alcohol Intake</label>
+                                <select id="f_alcohol" class="premium-input" onchange="runSkinModel()">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Activity Level</label>
+                                <select id="f_activity" class="premium-input" onchange="runSkinModel()">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Screen Time (hrs/day)</label>
+                                <input type="number" id="f_screen" value="6" step="0.5" class="premium-input" onchange="runSkinModel()">
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 15px; margin-top: 25px;">
+                            <button class="btn-gradient action-btn" onclick="runSkinModel()" style="flex: 1;">
+                                <i class="fa-solid fa-bolt"></i> Run Model 2
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE : Dashboard to render results -->
+                <div style="flex: 0 0 48%; min-height: 400px; display: flex; flex-direction: column;">
+                    <!-- Placeholder to show before run -->
+                    <div id="placeholder-box"
+                        style="display:flex; flex: 1; align-items:center; justify-content:center; background:rgba(255,255,255,0.3); border:2px dashed #d1d5db; border-radius:15px; text-align:center; padding: 40px; color: #6b7280; font-size:16px;">
+                        <div>
+                            <i class="fa-solid fa-flask"
+                                style="font-size: 32px; color: #a855f7; margin-bottom: 15px; display: block;"></i>
+                            Enter your lifestyle data and run<br>Model 2 to see results here!
+                        </div>
+                    </div>
+
+                    <!-- Actual Dashboard -->
+                    <div id="severityCard" style="display:none;" class="dashboard-card">
+                        <div class="result-panel visible" id="skinResult">
+                            <div id="severityLabel"></div>
+                            <div id="lifestyleTips"></div>
+                            <div class="json-box" id="skinJson" style="display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Face Analysis Button Down Onwards -->
+            <div style="text-align: center; margin-top: 50px; margin-bottom: 20px;">
+                <button class="btn-gradient action-btn" onclick="window.location.href='Ai%20anianlys.html?return=true'"
+                    style="font-size: 16px; padding: 15px 30px;">
+                    <i class="fa-solid fa-camera"></i> AI Face Analysis
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Need the JS -->
+    <script src="NewAianian.js"></script>
+    <script src="upload.js"></script>
+    <script src="api.js"></script>
+    <script>
+        // Override showResults for Model 2 only rendering
+        window.showResults = function (imgRes, skinRes) {
+            const sevCard = document.getElementById("severityCard");
+            const placeholder = document.getElementById("placeholder-box");
+            if (sevCard) {
+                if (placeholder) placeholder.style.display = "none";
+                sevCard.style.display = "block";
+                sevCard.className = "dashboard-card active slide-up";
+
+                const severity = skinRes.severity_label || "N/A";
+                const tips = skinRes.lifestyle_tips || [];
+
+                const severityLabel = document.getElementById("severityLabel");
+                if (severityLabel) {
+                    severityLabel.innerHTML = `
+                        <div class="dashboard-header">
+                            <div class="badge-premium">Model 2 Analysis</div>
+                            <h2 class="main-title">🧪 Lifestyle Severity</h2>
+                            <div class="stats-row">
+                                <div class="stat-box">
+                                    <span class="stat-label">Severity Level</span>
+                                    <span class="stat-value text-pink">${severity}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                const lifestyleTips = document.getElementById("lifestyleTips");
+                if (lifestyleTips) {
+                    let html = '<div class="dashboard-grid" style="grid-template-columns: 1fr; max-width: 600px; margin: auto;">';
+
+                    // Tips & Avoid (Model 2 output)
+                    html += '<div class="dashboard-col glass-card fade-in delay-1">';
+                    html += '<div class="card-header"><i class="fa-solid fa-lightbulb text-amber"></i> Lifestyle & Caution</div>';
+
+                    if (tips.length > 0) {
+                        html += '<div class="routine-section">';
+                        html += '<div class="routine-title text-pink"><i class="fa-solid fa-heart"></i> Recommendations</div>';
+                        tips.forEach(tip => {
+                            html += `<div class="routine-item border-pink"><span class="bullet pink"></span><span>${tip}</span></div>`;
+                        });
+                        html += '</div>';
+                    }
+                    html += '</div>';
+
+                    html += '</div>'; // close grid
+                    lifestyleTips.innerHTML = html;
+
+                    setTimeout(() => {
+                        document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+                    }, 100);
+                }
+            }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            try {
+                const localImg = localStorage.getItem('lastImageResult');
+                if (localImg) {
+                    window.lastImageResult = JSON.parse(localImg);
+                }
+            } catch (e) {
+                console.warn("Failed to load prev image result", e);
+            }
+        });
+    </script>
+    <!-- Global Disclaimer -->
+    <div
+        style="background-color: #ca5fa4; color: white; text-align: center; padding: 12px 20px; position: fixed; bottom: 0; left: 0; width: 100%; font-size: 14px; font-weight: 500; z-index: 9999; box-sizing: border-box;">
+        Disclaimer: The AI Skin Analysis and Lifestyle Simulator are for informational purposes only and do not replace
+        professional medical advice, diagnosis, or treatment.
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+product_id,product_name,brand,ingredient,condition,severity_level,skin_type,product_type,price,rating,image_url
+101,Salicylic Cleanser,Minimalist,Salicylic Acid,Acne,Mild,Oily,Cleanser,299,4.2,product_images/101.jpg
+102,Acne Control Gel,The Derma Co,Benzoyl Peroxide,Acne,Moderate,Oily,Gel,399,4.1,product_images/102.jpg
+103,Adapalene 0.1% Gel,Galderma,Adapalene,Acne,Severe,Oily,Gel,550,4.5,product_images/103.jpg
+104,Oil Free Serum,Plum,Niacinamide,Acne,Mild,Oily,Serum,499,4.3,product_images/104.jpg
+105,Acne Repair Cream,1Rx,Azelaic Acid,Acne,Moderate,Oily,Cream,599,4.4,product_images/105.jpg
+106,Retinol Night Gel,Minimalist,Retinol,Acne,Severe,Oily,Gel,699,4.2,product_images/106.jpg
+107,Pore Minimizer Serum,Pilgrim,Niacinamide,Acne,Mild,Oily,Serum,450,4,product_images/107.jpg
+108,Anti Acne Face Wash,The Derma Co,Salicylic Acid,Acne,Moderate,Oily,Cleanser,349,4.3,product_images/108.jpg
+109,Sulfur Spot Treatment,Fixderma,Sulfur Cleanser,Acne,Severe,Oily,Gel,520,4.1,product_images/109.jpg
+110,Hydrating Acne Gel,Dot & Key,Hyaluronic Acid,Acne,Mild,Oily,Gel,399,4.2,product_images/110.jpg
+201,Redness Relief Cream,Cetaphil,Azelaic Acid,Rosacea,Mild,Sensitive,Cream,799,4.3,product_images/201.jpg
+202,Metro Gel,Glenmark,Metronidazole,Rosacea,Severe,Sensitive,Gel,650,4.4,product_images/202.jpg
+203,Calming Moisturizer,Minimalist,Ceramide Moisturizer,Rosacea,Mild,Sensitive,Cream,899,4.5,product_images/203.jpg
+204,Sensitive Cleanser,Simple,Mild Cleanser,Rosacea,Mild,Sensitive,Cleanser,325,4.2,product_images/204.jpg
+205,Sulfur Therapy Wash,Fixderma,Sulfur Cleanser,Rosacea,Moderate,Sensitive,Cleanser,499,4.1,product_images/205.jpg
+206,Tacrolimus Ointment,Glenmark,Tacrolimus Ointment,Rosacea,Severe,Sensitive,Ointment,720,4.3,product_images/206.jpg
+207,Barrier Repair Cream,Minimalist,Ceramide Cream,Rosacea,Moderate,Sensitive,Cream,599,4.2,product_images/207.jpg
+208,Soothing Serum,Pilgrim,Niacinamide,Rosacea,Mild,Sensitive,Serum,450,4.1,product_images/208.jpg
+209,Hydra Calm Gel,Dot & Key,Hyaluronic Acid,Rosacea,Mild,Sensitive,Gel,399,4.2,product_images/209.jpg
+210,SPF 50 Sunscreen,La Shield,SPF Moisturizer,Rosacea,Moderate,Sensitive,Sunscreen,499,4.3,product_images/210.jpg
+301,Eczema Relief Cream,cetaphil,Hydrocortisone Cream,Eczema,Severe,Dry,Cream,650,4.4,product_images/301.jpg
+302,Moisture Lock Cream,Minimalist,Ceramide Cream,Eczema,Mild,Dry,Cream,799,4.5,product_images/302.jpg
+303,Hydrating Lotion,Minimalist,Hyaluronic Acid,Eczema,Mild,Dry,Serum,499,4.2,product_images/303.jpg
+304,Urea Repair Cream,The Derma Co,Urea Moisturizer,Eczema,Moderate,Dry,Cream,550,4.3,product_images/304.jpg
+305,Tacrolimus Ointment 0.03%,Glenmark,Tacrolimus Ointment,Eczema,Severe,Dry,Ointment,750,4.4,product_images/305.jpg
+306,Barrier Boost Cream,Minimalist,Ceramide Moisturizer,Eczema,Moderate,Dry,Cream,699,4.3,product_images/306.jpg
+307,Soothing Cleanser,Simple,Mild Cleanser,Eczema,Mild,Dry,Cleanser,325,4.1,product_images/307.jpg
+308,Vitamin C Serum,Plum,Vitamin C Serum,Eczema,Mild,Dry,Serum,499,4,product_images/308.jpg
+309,SPF 30 Lotion,Nivea,SPF Moisturizer,Eczema,Mild,Dry,Sunscreen,299,4.2,product_images/309.jpg
+310,Anti Itch Cream,Bioderma,Hydrocortisone Cream,Eczema,Severe,Dry,Cream,680,4.3,product_images/310.jpg
+401,Dark Spot Serum,Minimalist,Vitamin C Serum,Darkspots,Mild,All,Serum,599,4.4,product_images/401.jpg
+402,Niacinamide 10% Serum,Plum,Niacinamide,Darkspots,Moderate,All,Serum,499,4.3,product_images/402.jpg
+403,Retinol Night Cream,Olay,Retinol,Darkspots,Severe,All,Cream,999,4.5,product_images/403.jpg
+404,Azelaic Bright Cream,The Derma Co,Azelaic Acid,Darkspots,Moderate,All,Cream,699,4.3,product_images/404.jpg
+405,Glow Peptide Serum,Pilgrim,Peptides,Darkspots,Mild,All,Serum,550,4.2,product_images/405.jpg
+406,Hydra Glow Gel,Dot & Key,Hyaluronic Acid,Darkspots,Mild,All,Gel,399,4.1,product_images/406.jpg
+407,SPF 50 Sunscreen,La Shield,SPF Moisturizer,Darkspots,Moderate,All,Sunscreen,499,4.3,product_images/407.jpg
+408,Antioxidant Serum,Plum,Antioxidant Serum,Darkspots,Mild,All,Serum,650,4.2,product_images/408.jpg
+409,Spot Corrector Cream,Garnier,Vitamin C Serum,Darkspots,Moderate,All,Cream,399,4,product_images/409.jpg
+410,Brightening Cleanser,Minimalist,Mild Cleanser,Darkspots,Mild,All,Cleanser,299,4.1,product_images/410.jpg
+501,Retinol Night Serum,Olay,Retinol,Wrinkles,Severe,Normal,Serum,1099,4.6,product_images/501.jpg
+502,Peptide Firming Cream,Pilgrim,Peptides,Wrinkles,Moderate,Normal,Cream,799,4.4,product_images/502.jpg
+503,Hydra Plump Serum,Minimalist,Hyaluronic Acid,Wrinkles,Mild,Normal,Serum,599,4.3,product_images/503.jpg
+504,Vitamin C 20% Serum,Plum,Vitamin C Serum,Wrinkles,Moderate,Normal,Serum,699,4.4,product_images/504.jpg
+505,SPF 50 Sunscreen,La Shield,SPF Moisturizer,Wrinkles,Mild,Normal,Sunscreen,499,4.2,product_images/505.jpg
+506,Anti Aging Cream,Lakme,Retinol,Wrinkles,Severe,Normal,Cream,899,4.3,product_images/506.jpg
+507,Collagen Boost Serum,Dot & Key,Peptides,Wrinkles,Moderate,Normal,Serum,650,4.2,product_images/507.jpg
+508,Daily Cleanser,Simple,Mild Cleanser,Wrinkles,Mild,Normal,Cleanser,325,4.1,product_images/508.jpg
+509,Antioxidant Serum,Plum,Antioxidant Serum,Wrinkles,Mild,Normal,Serum,650,4.2,product_images/509.jpg
+510,Night Repair Cream,Olay,Retinol,Wrinkles,Severe,Normal,Cream,1299,4.6,product_images/510.jpg
+601,Deep Hydration Cream,Cetaphil,Ceramide Cream,Dry,Mild,Dry,Cream,799,4.5,product_images/601.jpg
+602,Hyaluronic Boost Serum,Minimalist,Hyaluronic Acid,Dry,Moderate,Dry,Serum,599,4.4,product_images/602.jpg
+603,Urea Moisture Cream,Fixderma,Urea Moisturizer,Dry,Moderate,Dry,Cream,550,4.3,product_images/603.jpg
+604,Hydrating Cleanser,Simple,Mild Cleanser,Dry,Mild,Dry,Cleanser,325,4.1,product_images/604.jpg
+605,SPF 30 Lotion,Nivea,SPF Moisturizer,Dry,Mild,Dry,Sunscreen,299,4.2,product_images/605.jpg
+606,Night Repair Cream,Olay,Retinol,Dry,Moderate,Dry,Cream,999,4.3,product_images/606.jpg
+607,Vitamin C Serum,Plum,Vitamin C Serum,Dry,Mild,Dry,Serum,499,4.1,product_images/607.jpg
+608,Peptide Cream,Pilgrim,Peptides,Dry,Moderate,Dry,Cream,799,4.2,product_images/608.jpg
+609,Barrier Repair Cream,Reequil,Ceramide Moisturizer,Dry,Severe,Dry,Cream,699,4.3,product_images/609.jpg
+610,Intense Hydration Gel,Dot & Key,Hyaluronic Acid,Dry,Severe,Dry,Gel,450,4.2,product_images/610.jpg
+701,Oil Control Cleanser,Minimalist,Salicylic Acid,Oily,Mild,Oily,Cleanser,299,4.2,product_images/701.jpg
+702,Niacinamide 10% Serum,Plum,Niacinamide,Oily,Moderate,Oily,Serum,499,4.3,product_images/702.jpg
+703,Matte Gel Moisturizer,Ponds,Gel Moisturizer,Oily,Mild,Oily,Gel,299,4,product_images/703.jpg
+704,Acne Spot Gel,Galderma,Benzoyl Peroxide,Oily,Moderate,Oily,Gel,399,4.1,product_images/704.jpg
+705,Adapalene Gel 0.1%,Galderma,Adapalene,Oily,Severe,Oily,Gel,550,4.5,product_images/705.jpg
+706,Vitamin C Serum,Plum,Vitamin C Serum,Oily,Mild,Oily,Serum,499,4.1,product_images/706.jpg
+707,Azelaic Acid Cream,The Derma Co,Azelaic Acid,Oily,Moderate,Oily,Cream,699,4.3,product_images/707.jpg
+708,Oil Free Sunscreen,La Shield,SPF Moisturizer,Oily,Mild,Oily,Sunscreen,499,4.2,product_images/708.jpg
+709,Pore Tightening Serum,Pilgrim,Niacinamide,Oily,Moderate,Oily,Serum,450,4.1,product_images/709.jpg
+710,Sulfur Cleanser,Fixderma,Sulfur Cleanser,Oily,Severe,Oily,Cleanser,520,4.2,product_images/710.jpg
+801,Daily Gentle Cleanser,Simple,Mild Cleanser,Normal,Mild,Normal,Cleanser,325,4.2,product_images/801.jpg
+802,SPF 50 Sunscreen,La Shield,SPF Moisturizer,Normal,Mild,Normal,Sunscreen,499,4.3,product_images/802.jpg
+803,Vitamin C Glow Serum,Plum,Vitamin C Serum,Normal,Moderate,Normal,Serum,599,4.4,product_images/803.jpg
+804,Retinol Night Cream,Olay,Retinol,Normal,Moderate,Normal,Cream,999,4.5,product_images/804.jpg
+805,Hydra Boost Gel,Dot & Key,Hyaluronic Acid,Normal,Mild,Normal,Gel,399,4.2,product_images/805.jpg
+806,Peptide Serum,Minimalist,Peptides,Normal,Moderate,Normal,Serum,650,4.2,product_images/806.jpg
+807,Antioxidant Serum,Minimalist,Antioxidant Serum,Normal,Mild,Normal,Serum,650,4.1,product_images/807.jpg
+808,Niacinamide Serum,Pilgrim,Niacinamide,Normal,Moderate,Normal,Serum,499,4.3,product_images/808.jpg
+809,Barrier Cream,Reequil,Ceramide Cream,Normal,Mild,Normal,Cream,699,4.2,product_images/809.jpg
+810,Brightening Cleanser,Minimalist,Mild Cleanser,Normal,Mild,Normal,Cleanser,299,4.1,product_images/810.jpg
