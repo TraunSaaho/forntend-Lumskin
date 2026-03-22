@@ -1,6 +1,6 @@
 /* ================= HEALTH CHECK ================= */
 
-const API = "http://localhost:10000";
+const API = "https://lumiskin-ai-backend.onrender.com";
 
 async function checkHealth() {
     const dot = document.getElementById("statusDot");

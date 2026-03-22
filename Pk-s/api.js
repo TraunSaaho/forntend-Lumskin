@@ -1,5 +1,5 @@
 
-const BACKEND_URL = "http://localhost:10000";
+const BACKEND_URL = "https://lumiskin-ai-backend.onrender.com";
 
 /**
  * Health check — call this on page load to verify backend is running.
@@ -20,9 +20,9 @@ async function checkBackendHealth() {
 // ─── AUTO-CHECK BACKEND ON PAGE LOAD ────────────────────────────────────────
 window.addEventListener("DOMContentLoaded", async () => {
   const ok = await checkBackendHealth();
-  if (!ok) {
-    showBackendWarning();
-  }
+  // if (!ok) {
+  //   showBackendWarning();
+  // }
 });
 
 function showBackendWarning() {
