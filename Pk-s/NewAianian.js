@@ -1,6 +1,6 @@
 /* ================= HEALTH CHECK ================= */
 
-const API = "http://localhost:10000";
+const API = "https://lumiskin-ai-backend.onrender.com";
 
 async function checkHealth() {
     const dot = document.getElementById("statusDot");
@@ -24,16 +24,16 @@ async function checkHealth() {
 
 checkHealth();
 
-function renderImageModelResult(data){
+function renderImageModelResult(data) {
 
     console.log("Image Model Result:", data);
 
     const panel = document.getElementById("skinResult");
-    if(panel) panel.classList.add("visible");
+    if (panel) panel.classList.add("visible");
 
     const label = document.getElementById("severityLabel");
 
-    if(label){
+    if (label) {
         label.innerHTML = `
             <div style="font-size:22px;font-weight:700;color:#7b8cff;">
                 ${data.predicted_class}
@@ -51,11 +51,11 @@ function renderImageModelResult(data){
 
     /* Probability Chart */
 
-    if(data.all_probabilities){
+    if (data.all_probabilities) {
 
         html += `<h4 style="margin-top:10px">Skin Analysis</h4>`;
 
-        Object.entries(data.all_probabilities).forEach(([key,val]) => {
+        Object.entries(data.all_probabilities).forEach(([key, val]) => {
 
             html += `
             <div style="display:flex;align-items:center;margin:6px 0;">
@@ -73,25 +73,25 @@ function renderImageModelResult(data){
 
     /* Routine */
 
-    if(data.routine){
+    if (data.routine) {
 
         html += `<h4 style="margin-top:20px">Recommended Routine</h4>`;
 
-        if(data.routine.morning){
+        if (data.routine.morning) {
 
             html += `<b>Morning</b>`;
 
-            data.routine.morning.forEach(step=>{
+            data.routine.morning.forEach(step => {
                 html += `<div>• ${step}</div>`;
             });
 
         }
 
-        if(data.routine.evening){
+        if (data.routine.evening) {
 
             html += `<br><b>Evening</b>`;
 
-            data.routine.evening.forEach(step=>{
+            data.routine.evening.forEach(step => {
                 html += `<div>• ${step}</div>`;
             });
 
@@ -105,12 +105,12 @@ function renderImageModelResult(data){
 
 async function runSkinModel() {
 
-    
+
 
     const age = +document.getElementById("f_age").value;
     const gender = +document.getElementById("f_gender").value;
     const skinType = +document.getElementById("f_skin_type").value;
-    
+
 
     // Lifestyle values (dynamic)
     const sleepHours = +document.getElementById("f_sleep").value;
@@ -151,8 +151,8 @@ async function runSkinModel() {
         console.error("Skin model error:", err);
         alert("Failed to run severity model. Is the backend running?");
     }
-   
-    
+
+
 }
 
 function renderSkinResult(d) {

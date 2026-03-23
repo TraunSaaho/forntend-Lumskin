@@ -261,6 +261,7 @@ document.getElementById("detailName").innerText = product.product_name;
 document.getElementById("detailPrice").innerText = "₹"+product.price;
 
 currentProduct = product;
+window.currentProduct = product; /* exposed for cart.js */
 
 qty = 1;
 document.getElementById("qtyValue").innerText = qty;

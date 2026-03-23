@@ -1,5 +1,5 @@
 
-const BACKEND_URL = "http://localhost:10000";
+const BACKEND_URL = "https://lumiskin-ai-backend.onrender.com";
 
 /**
  * Health check — call this on page load to verify backend is running.

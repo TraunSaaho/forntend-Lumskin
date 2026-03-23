@@ -14,7 +14,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Print stylesheet for PDF download -->
+    <style media="print">
+        /* Hide everything except the results */
+        header, #uploadScreen, #concernScreen, #loadingScreen,
+        #downloadReportBtn, #backend-warning,
+        body > div[style*="background-color"] { display: none !important; }
+
+        body { background: white !important; margin: 0; padding: 0; }
+
+        .wrapper { width: 100% !important; max-width: 100% !important; padding: 10px !important; box-sizing: border-box; }
+
+        /* Remove glassmorphism (html2canvas crashes on backdrop-filter) */
+        .glass-card {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            background: #ffffff !important;
+            border: 1px solid #e5e7eb !important;
+            box-shadow: none !important;
+        }
+
+        /* Ensure all cards and content print */
+        .dashboard-card { display: block !important; }
+        #severityCard { display: block !important; }
+        .result-panel { display: block !important; }
+        .fade-in { opacity: 1 !important; transform: none !important; }
+        .chart-bar-fill { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+        /* Remove the Back button from print */
+        .back { display: none !important; }
+
+        /* Page break settings */
+        .glass-card { page-break-inside: avoid; }
+    </style>
 
     <script>
         // Prevent layout flicker instantly by checking URL parameters before the DOM displays
@@ -270,7 +302,7 @@
             <div style="text-align: center; margin-top: 40px; margin-bottom: 20px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;"
                 class="fade-in delay-3">
                 <button class="btn-gradient action-btn" onclick="window.open('model2.html', '_blank')"
-                    style="font-size: 16px; padding: 15px 30px;">
+                    style="font-size: 15px; padding: 13px 32px; width: auto; display: inline-flex; width: fit-content;">
                     <i class="fa-solid fa-sliders"></i> Open Model 2 Simulator
                 </button>
             </div>
@@ -283,17 +315,13 @@
 
     <script>
         function downloadReport() {
-            const element = document.getElementById('skinResult');
-            const opt = {
-                margin: 0.5,
-                filename: 'Face_Analysis_Report.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-
-            // New Promise-based usage:
-            html2pdf().set(opt).from(element).save();
+            const result = document.getElementById('skinResult');
+            if (!result || !result.innerHTML.trim()) {
+                alert('No report to download. Please complete a face analysis first.');
+                return;
+            }
+            // Use browser's native print-to-PDF (works on all browsers, supports all CSS)
+            window.print();
         }
     </script>
 

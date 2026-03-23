@@ -114,6 +114,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // Store globally for api.js to access
         window.uploadData = { image: imageData };
 
+        // Also persist image so it survives navigation (e.g. return from model2)
+        try { localStorage.setItem("lastUploadedImage", imageData); } catch (e) { console.warn(e); }
+
         if (continueBtn) {
             continueBtn.classList.remove("hidden");
         }
@@ -209,7 +212,7 @@ if (startAnalysis) {
             try {
                 localStorage.setItem("lastImageResult", JSON.stringify(imageResult));
                 localStorage.setItem("lastSkinResult", JSON.stringify(skinResult));
-            } catch(e) { console.warn(e); }
+            } catch (e) { console.warn(e); }
 
             // Wait for loading animation to finish, then show results
             setTimeout(() => {
@@ -232,7 +235,7 @@ if (startAnalysis) {
 async function callAnalyzeImage(imageBase64, concerns) {
     console.log("Calling /api/analyze-image ...");
 
-    const res = await fetch("http://localhost:10000/api/analyze-image", {
+    const res = await fetch("https://lumiskin-ai-backend.onrender.com/api/analyze-image", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -253,7 +256,7 @@ async function callAnalyzeImage(imageBase64, concerns) {
 async function callAnalyzeSkin(features) {
     console.log("Calling /api/analyze-skin ...");
 
-    const res = await fetch("http://localhost:10000/api/analyze-skin", {
+    const res = await fetch("https://lumiskin-ai-backend.onrender.com/api/analyze-skin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(features)
@@ -328,11 +331,11 @@ function showResults(imageResult, skinResult) {
         const lifestyleTips = document.getElementById("lifestyleTips");
         if (lifestyleTips) {
             let html = '<div style="display: flex; gap: 25px; flex-wrap: wrap; margin-bottom: 40px; align-items: stretch;">';
-            
+
             // Uploaded Image View (Left Column)
             html += '<div class="dashboard-col glass-card fade-in delay-1" style="flex: 0 0 300px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;">';
             html += '<div class="card-header" style="width: 100%;"><i class="fa-solid fa-camera-retro text-purple"></i> Your Photo</div>';
-            
+
             let imgSrc = "";
             if (window.uploadData && window.uploadData.image) {
                 imgSrc = window.uploadData.image;
@@ -340,7 +343,11 @@ function showResults(imageResult, skinResult) {
                 const prev = document.getElementById('previewImage');
                 if (prev && prev.src && prev.src.includes('data:')) imgSrc = prev.src;
             }
-            
+            // Fallback: restore from localStorage if navigated back from model2
+            if (!imgSrc) {
+                try { imgSrc = localStorage.getItem('lastUploadedImage') || ''; } catch (e) { }
+            }
+
             if (imgSrc) {
                 html += `<img src="${imgSrc}" style="width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); object-fit: cover; border: 4px solid white;" />`;
             } else {
@@ -354,7 +361,7 @@ function showResults(imageResult, skinResult) {
             html += '<div class="dashboard-col glass-card fade-in delay-1">';
             html += '<div class="card-header"><i class="fa-solid fa-chart-pie text-purple"></i> Skin Breakdown</div>';
             if (Object.keys(allProbs).length > 0) {
-                const sorted = Object.entries(allProbs).sort(([,a],[,b]) => b - a);
+                const sorted = Object.entries(allProbs).sort(([, a], [, b]) => b - a);
                 html += '<div class="chart-container">';
                 sorted.forEach(([cls, pct]) => {
                     const barColor = pct > 20 ? 'linear-gradient(90deg, #ec4899, #f43f5e)' : 'linear-gradient(90deg, #a855f7, #8b5cf6)';
@@ -375,7 +382,7 @@ function showResults(imageResult, skinResult) {
             // Column 2: Routine
             html += '<div class="dashboard-col glass-card fade-in delay-2">';
             html += '<div class="card-header"><i class="fa-solid fa-spray-can-sparkles text-pink"></i> Tailored Routine</div>';
-            
+
             if (routine.morning) {
                 html += '<div class="routine-section">';
                 html += '<div class="routine-title text-amber"><i class="fa-solid fa-sun"></i> Morning</div>';
@@ -393,7 +400,7 @@ function showResults(imageResult, skinResult) {
                 });
                 html += '</div>';
             }
-            
+
             if (routine.ingredients_to_look_for && routine.ingredients_to_look_for.length > 0) {
                 html += '<div class="routine-section">';
                 html += '<div class="routine-title text-emerald"><i class="fa-solid fa-check-circle"></i> Key Ingredients</div>';
@@ -408,7 +415,7 @@ function showResults(imageResult, skinResult) {
             // Column 3: Tips & Avoid
             html += '<div class="dashboard-col glass-card fade-in delay-3">';
             html += '<div class="card-header"><i class="fa-solid fa-lightbulb text-amber"></i> Lifestyle & Caution</div>';
-            
+
             if (tips.length > 0) {
                 html += '<div class="routine-section">';
                 html += '<div class="routine-title text-pink"><i class="fa-solid fa-heart"></i> Recommendations</div>';
@@ -422,7 +429,7 @@ function showResults(imageResult, skinResult) {
                 html += '<div class="routine-section">';
                 html += '<div class="routine-title text-red"><i class="fa-solid fa-ban"></i> Avoid These</div>';
                 routine.avoid.forEach(item => {
-                     html += `<div class="routine-item border-red"><span class="bullet red"></span><span>${item}</span></div>`;
+                    html += `<div class="routine-item border-red"><span class="bullet red"></span><span>${item}</span></div>`;
                 });
                 html += '</div>';
             }
@@ -446,7 +453,7 @@ function showResults(imageResult, skinResult) {
         if (skinJson) {
             skinJson.textContent = JSON.stringify({ imageModel: imageResult, skinModel: skinResult }, null, 2);
         }
-        
+
         // The Model 2 simulator is on a separate page, so no need to unshide it here anymore.
     }
 }
